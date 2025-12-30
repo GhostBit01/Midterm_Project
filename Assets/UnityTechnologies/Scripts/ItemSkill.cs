@@ -2,24 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoinCollector : MonoBehaviour
+public class ItemSkill : MonoBehaviour
 {
     PlayerStatus playerStatus;
-
+    
     // Start is called before the first frame update
     void Start()
     {
         playerStatus = FindAnyObjectByType<PlayerStatus>();
     }
 
-    void OnTriggerEnter(Collider other)
+    // Update is called once per frame
+    void Update()
     {
-        if (other.CompareTag("Player"))
-        {
-            playerStatus.CurrentScore += 1;
-            playerStatus.UpdateScore();
-            Destroy(gameObject);
-        }
+        
     }
 
+    void OnTriggerEnter(Collider other)
+    {
+        if (playerStatus.isUsingItem && other.CompareTag("Enemy"))
+        {
+            Debug.Log("Kill!");
+            playerStatus.CurrentScore += 50;
+            playerStatus.UpdateScore();
+            Destroy(other.gameObject);
+        }
+    }
 }

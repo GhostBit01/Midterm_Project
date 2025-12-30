@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class PlayerItem : MonoBehaviour
 {
-    // Start is called before the first frame update
+    PlayerStatus playerStatus;
+    public float itemTime = 4f;
+
     void Start()
     {
-        
+        playerStatus = FindAnyObjectByType<PlayerStatus>();
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnTriggerEnter(Collider other)
     {
-        
+        if (other.CompareTag("Player"))
+        {
+            playerStatus.isUsingItem = true;
+            playerStatus.itemTime = itemTime;
+            Destroy(gameObject);
+        }
     }
+
 }
