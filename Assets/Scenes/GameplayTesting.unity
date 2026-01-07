@@ -739,6 +739,7 @@ MonoBehaviour:
   CurrentScore: 0
   scoreTxt: {fileID: 678363537}
   HealthTxt: {fileID: 1813244673}
+  ObjectiveTxt: {fileID: 0}
   Health: 3
   turnSpeed: 20
   walkSpeed: 1
