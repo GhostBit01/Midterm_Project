@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [Header("MovementSpeed")]
-    public float turnSpeed = 20f;
-    public float walkSpeed = 1f;
-    public float runSpeed = 2f;
-
+    GameManager gameManager;
     Animator m_Animator;
     Rigidbody m_Rigidbody;
     Vector3 m_Movement;
@@ -16,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start ()
     {
+        gameManager = FindAnyObjectByType<GameManager>();
         m_Animator = GetComponent<Animator>();
         m_Rigidbody = GetComponent<Rigidbody>();
     }
@@ -27,11 +24,11 @@ public class PlayerMovement : MonoBehaviour
 
         if(Input.GetKey(KeyCode.LeftShift))
         {
-            m_Animator.SetFloat("WalkSpeed",runSpeed);
+            m_Animator.SetFloat("WalkSpeed",gameManager.runSpeed);
         }
         else
         {
-            m_Animator.SetFloat("WalkSpeed",walkSpeed);
+            m_Animator.SetFloat("WalkSpeed",gameManager.walkSpeed);
         }
 
         m_Movement.Set(horizontal, 0f, vertical);
@@ -41,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
         bool isWalking = hasHorizontalInput || hasVerticalInput;
         m_Animator.SetBool ("IsWalking", isWalking);
         Vector3 desiredForward = Vector3.RotateTowards
-        (transform.forward, m_Movement, turnSpeed * Time.deltaTime, 0f);
+        (transform.forward, m_Movement, gameManager.turnSpeed * Time.deltaTime, 0f);
         m_Rotation = Quaternion.LookRotation (desiredForward);
     }
     

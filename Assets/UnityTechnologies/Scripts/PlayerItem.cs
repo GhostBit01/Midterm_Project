@@ -4,20 +4,22 @@ using UnityEngine;
 
 public class PlayerItem : MonoBehaviour
 {
-    PlayerStatus playerStatus;
+    GameManager gameManager;
+    public string itemName = "";
     public float itemTime = 4f;
 
     void Start()
     {
-        playerStatus = FindAnyObjectByType<PlayerStatus>();
+        gameManager = FindAnyObjectByType<GameManager>();
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            playerStatus.isUsingItem = true;
-            playerStatus.itemTime = itemTime;
+            gameManager.isUsingItem = true;
+            gameManager.currentItem = itemName;
+            gameManager.itemDuration = itemTime;
             Destroy(gameObject);
         }
     }

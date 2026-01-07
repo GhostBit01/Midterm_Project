@@ -4,28 +4,28 @@ using UnityEngine;
 
 public class ItemSkill : MonoBehaviour
 {
-    PlayerStatus playerStatus;
+    GameManager gameManager;
+    public GameObject lockDoor;
     
     // Start is called before the first frame update
     void Start()
     {
-        playerStatus = FindAnyObjectByType<PlayerStatus>();
+        gameManager = FindAnyObjectByType<GameManager>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Crusifix()
     {
-        
+        gameManager.CurrentScore += 50;
     }
 
-    void OnTriggerEnter(Collider other)
+    public void DisableItem()
     {
-        if (playerStatus.isUsingItem && other.CompareTag("Enemy"))
-        {
-            Debug.Log("Kill!");
-            playerStatus.CurrentScore += 50;
-            playerStatus.UpdateScore();
-            Destroy(other.gameObject);
-        }
+        gameManager.currentItem = "";
+        gameManager.itemDuration = 0;
+        gameManager.isUsingItem = false;
+    }
+
+    public void UnlockDoor(){
+        Destroy(lockDoor);
     }
 }

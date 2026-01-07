@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class CoinCollector : MonoBehaviour
 {
-    PlayerStatus playerStatus;
+    GameManager gameManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        playerStatus = FindAnyObjectByType<PlayerStatus>();
+        gameManager = FindAnyObjectByType<GameManager>();
     }
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            playerStatus.CurrentScore += 1;
-            playerStatus.UpdateScore();
+            gameManager.CurrentScore += 1;
+            gameManager.UpdateScore();
             Destroy(gameObject);
         }
     }
