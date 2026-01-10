@@ -18,6 +18,7 @@ public class CoinCollector : MonoBehaviour
         {
             gameManager.CurrentScore += 1;
             gameManager.UpdateScore();
+            gameObject.SetActive(false);
             Destroy(gameObject);
         }
     }

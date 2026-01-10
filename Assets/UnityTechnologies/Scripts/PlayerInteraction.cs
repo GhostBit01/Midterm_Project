@@ -23,7 +23,7 @@ public class PlayerInteraction : MonoBehaviour
 
         if (other.CompareTag("Enemy"))
         {
-            if(gameManager.isUsingItem && gameManager.currentItem == "Crusifix")
+            if(gameManager.isUsingItem && gameManager.currentItem.ToLower() == "crucifix")
             {
                 itemSkill.Crusifix();
                 Destroy(other.gameObject);
