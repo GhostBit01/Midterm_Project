@@ -736,10 +736,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35ddc34b1f522a943a90b6a2ae42566f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentScore: 0
+  currentScore: 0
+  killCount: 0
   scoreTxt: {fileID: 678363537}
-  HealthTxt: {fileID: 1813244673}
-  ObjectiveTxt: {fileID: 1268240287}
+  healthTxt: {fileID: 0}
+  objectiveTxt: {fileID: 0}
+  exitTxt: {fileID: 0}
+  totalScoreTxt1: {fileID: 0}
+  totalScoreTxt2: {fileID: 0}
   Health: 3
   turnSpeed: 20
   walkSpeed: 1
@@ -748,6 +752,12 @@ MonoBehaviour:
   isUsingItem: 0
   keyCount: 0
   itemDuration: 0
+  coin: {fileID: 0}
+  kill: {fileID: 0}
+  item: {fileID: 0}
+  hurt: {fileID: 0}
+  spawnPoint: {fileID: 0}
+  enemy: {fileID: 0}
 --- !u!114 &450697513
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -760,7 +770,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b46dae149d933a24db0691457f36fda5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lockDoor: {fileID: 1451216604}
 --- !u!1 &549770628
 GameObject:
   m_ObjectHideFlags: 0
@@ -2692,6 +2701,74 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 1293103268}
+--- !u!1001 &1545492307679531100
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4230302779678820679, guid: c84887843028535439bd5b5ba649de0f,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.8390529
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230302779678820679, guid: c84887843028535439bd5b5ba649de0f,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230302779678820679, guid: c84887843028535439bd5b5ba649de0f,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.6576242
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230302779678820679, guid: c84887843028535439bd5b5ba649de0f,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230302779678820679, guid: c84887843028535439bd5b5ba649de0f,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230302779678820679, guid: c84887843028535439bd5b5ba649de0f,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230302779678820679, guid: c84887843028535439bd5b5ba649de0f,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230302779678820679, guid: c84887843028535439bd5b5ba649de0f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230302779678820679, guid: c84887843028535439bd5b5ba649de0f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230302779678820679, guid: c84887843028535439bd5b5ba649de0f,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230302779678987623, guid: c84887843028535439bd5b5ba649de0f,
+        type: 3}
+      propertyPath: m_Name
+      value: Gargoyle
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c84887843028535439bd5b5ba649de0f, type: 3}
 --- !u!1001 &4778855784926908284
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3123,3 +3200,4 @@ SceneRoots:
   - {fileID: 6196524229652631775}
   - {fileID: 8673732339944925992}
   - {fileID: 4778855784926908284}
+  - {fileID: 1545492307679531100}

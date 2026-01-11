@@ -29,7 +29,10 @@ public class PlayerInteraction : MonoBehaviour
                 gameManager.PlayAudio("kill");
                 itemSkill.Crusifix();
                 gameManager.killCount++;
+                other.gameObject.SetActive(false);
                 Destroy(other.gameObject);
+                //Spawn Enemy at centre room
+                gameManager.SpawnEnemy();
             }
             else
             {

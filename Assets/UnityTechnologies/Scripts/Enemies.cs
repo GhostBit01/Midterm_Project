@@ -58,7 +58,7 @@ namespace StealthGame
         public bool showDebugInfo = true;
 
         NavMeshAgent agent;
-        EnemyState state = EnemyState.Patrol;
+        //EnemyState state = EnemyState.Patrol;
         int waypointIndex;
         bool frightened;
 
@@ -66,14 +66,14 @@ namespace StealthGame
         bool hasRandomPatrolTarget;
 
         Vector3 lastKnownPlayerPosition;
-        float chaseMemoryTimer;
+        // float chaseMemoryTimer;
         bool hasLastKnownPosition;
 
         float uniqueOffsetAngle;
         Quaternion targetRotation;
-        float speedVariation = 0.1f;
-        float detectionTime;
-        float chaseDelay;
+        // float speedVariation = 0.1f;
+        // float detectionTime;
+        // float chaseDelay;
 
         void Awake()
         {
@@ -94,14 +94,6 @@ namespace StealthGame
 
         void Start()
         {
-            if (player == null)
-            {
-                GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-                if (playerObj != null)
-                {
-                    player = playerObj.transform;
-                }
-            }
 
             if (archetype == EnemyArchetype.Flanker && anchor == null)
             {
@@ -109,7 +101,7 @@ namespace StealthGame
             }
 
             uniqueOffsetAngle = Random.Range(0f, 360f);
-            chaseDelay = archetype == EnemyArchetype.Chaser ? 0f : archetype == EnemyArchetype.Ambusher ? 1f : archetype == EnemyArchetype.Flanker ? 2f : 3f;
+            //chaseDelay = archetype == EnemyArchetype.Chaser ? 0f : archetype == EnemyArchetype.Ambusher ? 1f : archetype == EnemyArchetype.Flanker ? 2f : 3f;
         }
 
         void FindAnchor()
@@ -132,78 +124,28 @@ namespace StealthGame
                 return;
             }
 
-            if (player == null)
-            {
-                GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-                if (playerObj != null)
-                {
-                    player = playerObj.transform;
-                }
-            }
-
-
-
-            if (playerInSight && player != null)
-            {
-                if (detectionTime == 0f) detectionTime = Time.time;
-                lastKnownPlayerPosition = player.position;
-                chaseMemoryTimer = chaseMemoryDuration;
-                hasLastKnownPosition = true;
-            }
-            else if (hasLastKnownPosition)
-            {
-                chaseMemoryTimer -= Time.deltaTime;
-                if (chaseMemoryTimer <= 0f)
-                {
-                    hasLastKnownPosition = false;
-                    detectionTime = 0f;
-                }
-            }
-
-            if (frightened)
-            {
-                state = EnemyState.Flee;
-            }
-            else if ((playerInSight || hasLastKnownPosition) && Time.time >= detectionTime + chaseDelay)
-            {
-                state = EnemyState.Chase;
-            }
-            else
-            {
-                state = EnemyState.Patrol;
-            }
-
-            agent.speed = (frightened ? fleeSpeed : speed) * (1f + Mathf.Sin(Time.time * 2f + uniqueOffsetAngle) * speedVariation);
-
-            if (agent.autoBraking != (state != EnemyState.Chase))
-            {
-                agent.autoBraking = (state != EnemyState.Chase);
-            }
-
-            if (showDebugInfo)
-            {
-                Debug.Log($"{gameObject.name} | State: {state} | Archetype: {archetype} | CanSee: {playerInSight}| Memory: {hasLastKnownPosition}");
-            }
-
             if (agent.velocity.sqrMagnitude > 0.1f)
             {
                 targetRotation = Quaternion.LookRotation(agent.velocity.normalized);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
             }
-
-            if (state == EnemyState.Chase && player != null)
-            {
+            
+            if (playerInSight)
+            {        
+                GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+                if (playerObj != null)
+                {
+                    player = playerObj.transform;
+                }
                 agent.SetDestination(GetChaseTarget());
-                return;
             }
-
-            if (state == EnemyState.Flee)
+            else
             {
-                SetDestination(GetFleeTarget());
-                return;
+                player = null;
+                Patrol();
             }
-
-            Patrol();
+            
+            
         }
 
         void Patrol()
@@ -364,18 +306,11 @@ namespace StealthGame
 
             Vector3 currentOrigin = origin;
             float remainingDistance = sightRange;
+            
 
-            for (int i = 0; i < 5; i++) // Max 5 iterations to prevent infinite loop
-            {
                 if (Physics.Raycast(currentOrigin, dir.normalized, out RaycastHit hit, remainingDistance))
                 {
-                    if (hit.transform.CompareTag("Furniture"))
-                    {
-                        currentOrigin = hit.point + dir.normalized * 0.1f;
-                        remainingDistance -= hit.distance + 0.1f;
-                        continue;
-                    }
-                    else if (hit.transform == player || hit.transform.IsChildOf(player) && playerInSight)
+                    if(playerInSight)
                     {
                         return true;
                     }
@@ -388,9 +323,6 @@ namespace StealthGame
                 {
                     return false;
                 }
-            }
-
-            return false;
         }
 
         void SetDestination(Vector3 destination)
@@ -413,7 +345,7 @@ namespace StealthGame
             waypointIndex = 0;
             hasRandomPatrolTarget = false;
             hasLastKnownPosition = false;
-            chaseMemoryTimer = 0f;
+            //chaseMemoryTimer = 0f;
             if (agent != null)
             {
                 agent.ResetPath();
