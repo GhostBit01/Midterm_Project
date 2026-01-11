@@ -15,6 +15,7 @@ public class CoinCollector : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            gameManager.PlayAudio("coin");
             gameManager.currentScore += 1;
             gameManager.UpdateScore();
             gameObject.SetActive(false);

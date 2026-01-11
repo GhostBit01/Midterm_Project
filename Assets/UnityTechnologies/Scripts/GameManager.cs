@@ -41,6 +41,12 @@ public class GameManager : MonoBehaviour
     public int keyCount = 0;
     public float itemDuration = 0;
 
+    [Header("Audio Source")]
+    public AudioSource coin;
+    public AudioSource kill;
+    public AudioSource item;
+    public AudioSource hurt;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -90,6 +96,27 @@ public class GameManager : MonoBehaviour
     {
         totalScoreTxt1.text = $"Coins: {currentScore} \n Kills: {killCount}";
         totalScoreTxt2.text = $"Coins: {currentScore} \n Kills: {killCount}";
+    }
+
+    public void PlayAudio(string name)
+    {
+        switch (name)
+        {
+            case "coin":
+                coin.Play();
+                break;
+            case "kill":
+                kill.Play();
+                break;
+            case "item":
+                item.Play();
+                break;
+            case "hurt":
+                hurt.Play();
+                break;
+            default:
+            break;
+        }
     }
  
 }

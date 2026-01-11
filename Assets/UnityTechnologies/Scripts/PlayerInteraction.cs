@@ -17,6 +17,7 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (other.CompareTag("Key"))
         {
+            gameManager.PlayAudio("item");
             gameManager.keyCount++;
             Destroy(other.gameObject);
         }
@@ -25,12 +26,14 @@ public class PlayerInteraction : MonoBehaviour
         {
             if(gameManager.isUsingItem && gameManager.currentItem.ToLower() == "crucifix")
             {
+                gameManager.PlayAudio("kill");
                 itemSkill.Crusifix();
                 gameManager.killCount++;
                 Destroy(other.gameObject);
             }
             else
             {
+                gameManager.PlayAudio("hurt");
                 gameManager.Health--;
             }
         }
