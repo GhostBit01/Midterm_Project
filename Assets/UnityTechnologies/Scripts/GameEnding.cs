@@ -8,9 +8,13 @@ public class GameEnding : MonoBehaviour
     public float displayImageDuration = 1f;
     GameManager gameManager;
     public CanvasGroup exitBackgroundImageCanvasGroup;
+    public AudioSource exitAudio;
     public CanvasGroup caughtBackgroundImageCanvasGroup;
+    public AudioSource caughtAudio;
     public bool m_IsPlayerAtExit;
     public bool m_IsPlayerCaught;
+    
+    bool m_HasAudioPlayed;
     float m_Timer;
 
     void Start()
@@ -24,16 +28,23 @@ public class GameEnding : MonoBehaviour
         if (m_IsPlayerAtExit)
         {
             gameManager.UpdateTotalScore();
-            EndLevel(exitBackgroundImageCanvasGroup);
+            EndLevel(exitBackgroundImageCanvasGroup, exitAudio);
         }
         else if (m_IsPlayerCaught)
         {
             gameManager.UpdateTotalScore();
-            EndLevel(caughtBackgroundImageCanvasGroup);
+            EndLevel(caughtBackgroundImageCanvasGroup, caughtAudio);
         }
     }
-    void EndLevel(CanvasGroup imageCanvasGroup)
+    void EndLevel(CanvasGroup imageCanvasGroup, AudioSource audioSource)
     {
+        if (!m_HasAudioPlayed)
+        {
+            audioSource.Play();
+            m_HasAudioPlayed = true;
+        }
+
+
         m_Timer += Time.deltaTime;
         imageCanvasGroup.alpha = m_Timer / fadeDuration;
     }

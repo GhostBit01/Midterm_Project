@@ -69,6 +69,8 @@ public class GameManager : MonoBehaviour
         {
             gameEnding.m_IsPlayerCaught = true;
         }
+
+        
     }
 
     public void UpdateScore()

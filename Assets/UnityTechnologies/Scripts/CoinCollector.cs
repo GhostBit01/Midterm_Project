@@ -5,7 +5,6 @@ using UnityEngine;
 public class CoinCollector : MonoBehaviour
 {
     GameManager gameManager;
-
     // Start is called before the first frame update
     void Start()
     {
