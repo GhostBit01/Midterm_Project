@@ -68,9 +68,9 @@ public class GameManager : MonoBehaviour
 
     public void UpdateScore()
     {
-        scoreTxt.text = $"Score: {CurrentScore}";
-        HealthTxt.text = $"Health: {Health}";
-        ObjectiveTxt.text = $"Key: ({keyCount}/4)";
+        scoreTxt.text = $" {CurrentScore}";
+        HealthTxt.text = $" {Health}";
+        ObjectiveTxt.text = $" ({keyCount}/4)";
     }
  
 }
