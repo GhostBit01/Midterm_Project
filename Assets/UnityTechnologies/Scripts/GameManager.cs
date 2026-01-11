@@ -73,9 +73,9 @@ public class GameManager : MonoBehaviour
 
     public void UpdateScore()
     {
-        scoreTxt.text = $"Score: {currentScore}";
-        healthTxt.text = $"Health: {Health}";
-        objectiveTxt.text = $"Key: ({keyCount}/4)";
+        scoreTxt.text = $" {currentScore}";
+        healthTxt.text = $" {Health}";
+        objectiveTxt.text = $" ({keyCount}/4)";
 
         if(keyCount >= 4)
         {
