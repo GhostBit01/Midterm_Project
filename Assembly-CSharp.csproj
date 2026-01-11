@@ -72,6 +72,7 @@
     <Compile Include="Assets\UnityTechnologies\Scripts\LightFlicker.cs" />
     <Compile Include="Assets\UnityTechnologies\Scripts\ItemSkill.cs" />
     <Compile Include="Assets\UnityTechnologies\Scripts\EnemyManager.cs" />
+    <Compile Include="Assets\UnityTechnologies\Scripts\PlayerChecker.cs" />
     <Compile Include="Assets\Script\Mainmenu.cs" />
     <Compile Include="Assets\UnityTechnologies\Scripts\CoinCollector.cs" />
     <Compile Include="Assets\UnityTechnologies\Scripts\ExitCondition.cs" />

@@ -23,6 +23,7 @@ namespace StealthGame
         [Header("Setup")]
         public EnemyArchetype archetype = EnemyArchetype.Chaser;
         public Transform player;
+        public bool playerInSight;
         public Enemies anchor;
         public Transform home;
 
@@ -43,7 +44,7 @@ namespace StealthGame
         public Transform randomPatrolCenter;
 
         [Header("Tuning")]
-        public float sightRange = 15f;
+        public float sightRange = 12f;
         public float ambushDistance = 4f;
         public float flankDistance = 3f;
         public float shyDistance = 8f;
@@ -51,7 +52,7 @@ namespace StealthGame
         [Header("Chase Memory")]
         public float chaseMemoryDuration = 5f;
         
-        public float hearingRange = 15f;
+        public float hearingRange = 10f;
 
         [Header("Debug")]
         public bool showDebugInfo = true;
@@ -68,20 +69,26 @@ namespace StealthGame
         float chaseMemoryTimer;
         bool hasLastKnownPosition;
 
+        float uniqueOffsetAngle;
+        Quaternion targetRotation;
+        float speedVariation = 0.1f;
+        float detectionTime;
+        float chaseDelay;
+
         void Awake()
         {
             agent = GetComponent<NavMeshAgent>();
             if (agent != null)
             {
                 agent.speed = speed;
-                agent.updateRotation = true;
-                agent.acceleration = 120f;
-                agent.angularSpeed = 720f;
+                agent.updateRotation = false;
+                agent.acceleration = 60f;
+                agent.angularSpeed = 360f;
                 agent.stoppingDistance = 0f;
                 agent.autoBraking = false;
                 agent.radius = 0.2f;
                 agent.height = 1.0f;
-                agent.baseOffset = 0.1f;
+                agent.baseOffset = 0f;
             }
         }
 
@@ -100,6 +107,9 @@ namespace StealthGame
             {
                 FindAnchor();
             }
+
+            uniqueOffsetAngle = Random.Range(0f, 360f);
+            chaseDelay = archetype == EnemyArchetype.Chaser ? 0f : archetype == EnemyArchetype.Ambusher ? 1f : archetype == EnemyArchetype.Flanker ? 2f : 3f;
         }
 
         void FindAnchor()
@@ -131,12 +141,11 @@ namespace StealthGame
                 }
             }
 
-            bool canSee = CanSeePlayer();
-            bool canHear = CanHearPlayer();
-            bool playerDetected = canSee || canHear;
 
-            if (playerDetected && player != null)
+
+            if (playerInSight && player != null)
             {
+                if (detectionTime == 0f) detectionTime = Time.time;
                 lastKnownPlayerPosition = player.position;
                 chaseMemoryTimer = chaseMemoryDuration;
                 hasLastKnownPosition = true;
@@ -147,6 +156,7 @@ namespace StealthGame
                 if (chaseMemoryTimer <= 0f)
                 {
                     hasLastKnownPosition = false;
+                    detectionTime = 0f;
                 }
             }
 
@@ -154,7 +164,7 @@ namespace StealthGame
             {
                 state = EnemyState.Flee;
             }
-            else if (playerDetected || hasLastKnownPosition)
+            else if ((playerInSight || hasLastKnownPosition) && Time.time >= detectionTime + chaseDelay)
             {
                 state = EnemyState.Chase;
             }
@@ -163,7 +173,7 @@ namespace StealthGame
                 state = EnemyState.Patrol;
             }
 
-            agent.speed = frightened ? fleeSpeed : speed;
+            agent.speed = (frightened ? fleeSpeed : speed) * (1f + Mathf.Sin(Time.time * 2f + uniqueOffsetAngle) * speedVariation);
 
             if (agent.autoBraking != (state != EnemyState.Chase))
             {
@@ -172,12 +182,18 @@ namespace StealthGame
 
             if (showDebugInfo)
             {
-                Debug.Log($"{gameObject.name} | State: {state} | Archetype: {archetype} | CanSee: {canSee} | CanHear: {canHear} | Memory: {hasLastKnownPosition}");
+                Debug.Log($"{gameObject.name} | State: {state} | Archetype: {archetype} | CanSee: {playerInSight}| Memory: {hasLastKnownPosition}");
+            }
+
+            if (agent.velocity.sqrMagnitude > 0.1f)
+            {
+                targetRotation = Quaternion.LookRotation(agent.velocity.normalized);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
             }
 
             if (state == EnemyState.Chase && player != null)
             {
-                agent.SetDestination(player.position);
+                agent.SetDestination(GetChaseTarget());
                 return;
             }
 
@@ -188,17 +204,6 @@ namespace StealthGame
             }
 
             Patrol();
-        }
-
-        bool CanHearPlayer()
-        {
-            if (player == null)
-            {
-                return false;
-            }
-
-            float distance = Vector3.Distance(transform.position, player.position);
-            return distance <= hearingRange;
         }
 
         void Patrol()
@@ -279,7 +284,7 @@ namespace StealthGame
                 return transform.position;
             }
 
-            if (!CanSeePlayer() && !CanHearPlayer())
+            if (!CanSeePlayer())
             {
                 return lastKnownPlayerPosition;
             }
@@ -287,17 +292,22 @@ namespace StealthGame
             switch (archetype)
             {
                 case EnemyArchetype.Chaser:
-                    return targetPosition;
+                    Vector3 chaserOffset = Quaternion.Euler(0, uniqueOffsetAngle, 0) * Vector3.forward * 0.5f;
+                    return targetPosition + chaserOffset;
 
                 case EnemyArchetype.Ambusher:
-                    return targetPosition + (player != null ? player.forward : Vector3.forward) * ambushDistance;
+                    Vector3 ambushDirection = player != null ? player.forward : Vector3.forward;
+                    Vector3 ambushVariation = Quaternion.Euler(0, uniqueOffsetAngle * 0.5f, 0) * ambushDirection * ambushDistance;
+                    return targetPosition + ambushVariation;
 
                 case EnemyArchetype.Flanker:
                     if (anchor != null && player != null)
                     {
                         Vector3 toAnchor = anchor.transform.position - player.position;
                         Vector3 perpendicular = Vector3.Cross(toAnchor.normalized, Vector3.up).normalized;
-                        return player.position + perpendicular * flankDistance;
+                        float flankAngle = uniqueOffsetAngle * Mathf.Deg2Rad;
+                        Vector3 flankOffset = perpendicular * flankDistance + Vector3.right * Mathf.Sin(flankAngle) * 0.5f;
+                        return player.position + flankOffset;
                     }
                     return targetPosition;
 
@@ -352,15 +362,35 @@ namespace StealthGame
                 return false;
             }
 
-            if (Physics.Raycast(origin, dir.normalized, out RaycastHit hit, sightRange, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
+            Vector3 currentOrigin = origin;
+            float remainingDistance = sightRange;
+
+            for (int i = 0; i < 5; i++) // Max 5 iterations to prevent infinite loop
             {
-                if (hit.transform == player || hit.transform.IsChildOf(player))
+                if (Physics.Raycast(currentOrigin, dir.normalized, out RaycastHit hit, remainingDistance))
                 {
-                    return true;
+                    if (hit.transform.CompareTag("Furniture"))
+                    {
+                        currentOrigin = hit.point + dir.normalized * 0.1f;
+                        remainingDistance -= hit.distance + 0.1f;
+                        continue;
+                    }
+                    else if (hit.transform == player || hit.transform.IsChildOf(player) && playerInSight)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
                 }
             }
 
-            return dir.sqrMagnitude <= sightRange * sightRange;
+            return false;
         }
 
         void SetDestination(Vector3 destination)
