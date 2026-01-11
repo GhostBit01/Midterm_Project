@@ -11,6 +11,7 @@ public class GameEnding : MonoBehaviour
     public AudioSource exitAudio;
     public CanvasGroup caughtBackgroundImageCanvasGroup;
     public AudioSource caughtAudio;
+    public GameObject enemy;
     public bool m_IsPlayerAtExit;
     public bool m_IsPlayerCaught;
     
@@ -44,8 +45,8 @@ public class GameEnding : MonoBehaviour
             m_HasAudioPlayed = true;
         }
 
-
         m_Timer += Time.deltaTime;
         imageCanvasGroup.alpha = m_Timer / fadeDuration;
+        enemy.SetActive(false);
     }
 }
