@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEditor.SearchService;
 using UnityEngine;
@@ -46,6 +47,10 @@ public class GameManager : MonoBehaviour
     public AudioSource kill;
     public AudioSource item;
     public AudioSource hurt;
+
+    [Header("SpawnEnemy")]
+    public Transform spawnPoint;
+    public GameObject enemy;
 
     // Start is called before the first frame update
     void Start()
@@ -117,6 +122,11 @@ public class GameManager : MonoBehaviour
             default:
             break;
         }
+    }
+
+    public void SpawnEnemy()
+    {
+        GameObject newObject = Instantiate(enemy,spawnPoint.position,quaternion.identity);
     }
  
 }

@@ -9,14 +9,13 @@ public class PlayerChecker : MonoBehaviour
 
     void Start()
     {
-        enemies = FindAnyObjectByType<Enemies>();
+        enemies = GetComponentInParent<Enemies>();
     }
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             enemies.playerInSight = true;
-            Debug.Log("Player Detected");
         }
     }
 
@@ -25,7 +24,6 @@ public class PlayerChecker : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             enemies.playerInSight = false;
-            Debug.Log("Player Gone");
         }
     }
 }
