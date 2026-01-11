@@ -17,6 +17,7 @@ public class PlayerItem : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            gameManager.PlayAudio("item");
             gameManager.isUsingItem = true;
             gameManager.currentItem = itemName;
             gameManager.itemDuration = itemTime;

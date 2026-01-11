@@ -19,7 +19,6 @@ public class ItemSkill : MonoBehaviour
 
     public void DisableItem()
     {
-        gameManager.PlayAudio("item");
         gameManager.currentItem = "";
         gameManager.itemDuration = 0;
         gameManager.isUsingItem = false;
