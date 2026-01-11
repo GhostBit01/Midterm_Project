@@ -62,15 +62,15 @@ public class GameManager : MonoBehaviour
         
         if(Health <= 0)
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(2);
         }
     }
 
     public void UpdateScore()
     {
-        scoreTxt.text = $"Score: {CurrentScore}";
-        HealthTxt.text = $"Health: {Health}";
-        ObjectiveTxt.text = $"Key: ({keyCount}/4)";
+        scoreTxt.text = $" {CurrentScore}";
+        HealthTxt.text = $" {Health}";
+        ObjectiveTxt.text = $" ({keyCount}/4)";
     }
  
 }
