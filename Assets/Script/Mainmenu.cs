@@ -7,6 +7,7 @@ public class Mainmenu : MonoBehaviour
 {
     public void PlayGame()
     {
+        Debug.Log("OK");
         SceneManager.LoadSceneAsync(1);
     }
 
