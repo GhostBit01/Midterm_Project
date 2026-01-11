@@ -5,7 +5,6 @@ using UnityEngine;
 public class ItemSkill : MonoBehaviour
 {
     GameManager gameManager;
-    public GameObject lockDoor;
     
     // Start is called before the first frame update
     void Start()
@@ -15,7 +14,7 @@ public class ItemSkill : MonoBehaviour
 
     public void Crusifix()
     {
-        gameManager.CurrentScore += 50;
+        gameManager.currentScore += 50;
     }
 
     public void DisableItem()
@@ -25,7 +24,5 @@ public class ItemSkill : MonoBehaviour
         gameManager.isUsingItem = false;
     }
 
-    public void UnlockDoor(){
-        Destroy(lockDoor);
-    }
+
 }

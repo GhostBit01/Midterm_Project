@@ -26,6 +26,7 @@ public class PlayerInteraction : MonoBehaviour
             if(gameManager.isUsingItem && gameManager.currentItem.ToLower() == "crucifix")
             {
                 itemSkill.Crusifix();
+                gameManager.killCount++;
                 Destroy(other.gameObject);
             }
             else

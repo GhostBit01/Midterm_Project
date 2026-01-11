@@ -11,12 +11,20 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     ItemSkill itemSkill;
+    GameEnding gameEnding;
 
     [Header("Score")]
-    public int CurrentScore = 0;
+    public int currentScore = 0;
+    public int killCount = 0;
+
+    [Header("Text")]
     public TextMeshProUGUI scoreTxt;
-    public TextMeshProUGUI HealthTxt;
-    public TextMeshProUGUI ObjectiveTxt;
+    public TextMeshProUGUI healthTxt;
+    public TextMeshProUGUI objectiveTxt;
+    public TextMeshProUGUI exitTxt;
+    public TextMeshProUGUI totalScoreTxt1;
+    public TextMeshProUGUI totalScoreTxt2;
+
 
     [Header("Player Stat")]
     public int Health = 3;
@@ -37,6 +45,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         itemSkill = FindAnyObjectByType<ItemSkill>();
+        gameEnding = FindAnyObjectByType<GameEnding>();
+
     }
 
     // Update is called once per frame
@@ -54,23 +64,30 @@ public class GameManager : MonoBehaviour
                 itemSkill.DisableItem();
             }
         }
-
-        if(keyCount >= 4)
-        {
-            itemSkill.UnlockDoor();
-        }
         
         if(Health <= 0)
         {
-            SceneManager.LoadScene(1);
+            gameEnding.m_IsPlayerCaught = true;
         }
     }
 
     public void UpdateScore()
     {
-        scoreTxt.text = $"Score: {CurrentScore}";
-        HealthTxt.text = $"Health: {Health}";
-        ObjectiveTxt.text = $"Key: ({keyCount}/4)";
+        scoreTxt.text = $"Score: {currentScore}";
+        healthTxt.text = $"Health: {Health}";
+        objectiveTxt.text = $"Key: ({keyCount}/4)";
+
+        if(keyCount >= 4)
+        {
+            exitTxt.gameObject.SetActive(true);
+        }
+    }
+    
+
+    public void UpdateTotalScore()
+    {
+        totalScoreTxt1.text = $"Coins: {currentScore} \n Kills: {killCount}";
+        totalScoreTxt2.text = $"Coins: {currentScore} \n Kills: {killCount}";
     }
  
 }

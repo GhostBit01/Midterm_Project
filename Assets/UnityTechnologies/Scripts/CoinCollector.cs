@@ -16,7 +16,7 @@ public class CoinCollector : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            gameManager.CurrentScore += 1;
+            gameManager.currentScore += 1;
             gameManager.UpdateScore();
             gameObject.SetActive(false);
             Destroy(gameObject);
