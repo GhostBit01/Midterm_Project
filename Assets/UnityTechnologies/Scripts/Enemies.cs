@@ -325,6 +325,24 @@ namespace StealthGame
                 }
         }
 
+        public void ReceivePlayerAlert(Vector3 playerPosition)
+        {
+            lastKnownPlayerPosition = playerPosition;
+            hasLastKnownPosition = true;
+            playerInSight = true;
+            
+            GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+            if (playerObj != null)
+            {
+                player = playerObj.transform;
+            }
+            
+            if (showDebugInfo)
+            {
+                Debug.Log($"[{archetype}] Received alert from Gargoyle! Player at {playerPosition}");
+            }
+        }
+
         void SetDestination(Vector3 destination)
         {
             if (agent.enabled)
