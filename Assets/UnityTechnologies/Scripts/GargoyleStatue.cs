@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using StealthGame;
+using TMPro;
 
 public class GargoyleStatue : MonoBehaviour
 {
@@ -52,7 +53,9 @@ public class GargoyleStatue : MonoBehaviour
     [Header("Debug")]
     public bool showDebugInfo = true;
     public bool showGizmos = true;
-
+    
+    //Sound and text
+    public AudioSource alert;
     // Private variables
     private Transform player;
     private bool playerDetected = false;
@@ -103,9 +106,11 @@ public class GargoyleStatue : MonoBehaviour
         // If player detected and cooldown passed
         if (playerDetected && Time.time - lastAlertTime >= alertCooldown)
         {
+            alert.Play();
             AlertGhosts();
             lastAlertTime = Time.time;
         }
+
     }
 
     bool DetectPlayer()
@@ -151,6 +156,7 @@ public class GargoyleStatue : MonoBehaviour
 
     void AlertGhosts()
     {
+        
         if (player == null) return;
 
         Vector3 playerPosition = player.position;
