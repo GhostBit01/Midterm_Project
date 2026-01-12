@@ -76,6 +76,7 @@
     <Compile Include="Assets\Script\Mainmenu.cs" />
     <Compile Include="Assets\UnityTechnologies\Scripts\CoinCollector.cs" />
     <Compile Include="Assets\UnityTechnologies\Scripts\GargoyleStatue.cs" />
+    <Compile Include="Assets\UnityTechnologies\Scripts\GargoylePOV.cs" />
     <Compile Include="Assets\UnityTechnologies\Scripts\ExitCondition.cs" />
     <Compile Include="Assets\UnityTechnologies\Scripts\GameManager.cs" />
     <Compile Include="Assets\UnityTechnologies\Scripts\Observer.cs" />

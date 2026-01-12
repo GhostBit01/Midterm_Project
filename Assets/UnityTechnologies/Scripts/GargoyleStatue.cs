@@ -56,6 +56,8 @@ public class GargoyleStatue : MonoBehaviour
     
     //Sound and text
     public AudioSource alert;
+    public bool playerInSight;
+
     // Private variables
     private Transform player;
     private bool playerDetected = false;
@@ -104,7 +106,7 @@ public class GargoyleStatue : MonoBehaviour
         playerDetected = DetectPlayer();
 
         // If player detected and cooldown passed
-        if (playerDetected && Time.time - lastAlertTime >= alertCooldown)
+        if (playerInSight)
         {
             alert.Play();
             AlertGhosts();
