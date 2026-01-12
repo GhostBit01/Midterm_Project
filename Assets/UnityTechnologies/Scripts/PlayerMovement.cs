@@ -11,12 +11,15 @@ public class PlayerMovement : MonoBehaviour
     Vector3 m_Movement;
     Quaternion m_Rotation = Quaternion.identity;
 
+    GameEnding gameEnding;
+
     void Start()
     {
         gameManager = FindAnyObjectByType<GameManager>();
+        gameEnding = FindAnyObjectByType<GameEnding>();
         m_Animator = GetComponent<Animator>();
         m_Rigidbody = GetComponent<Rigidbody>();
-        m_AudioSource = GetComponent<AudioSource> ();
+        m_AudioSource = GetComponent<AudioSource>();
     }
 
     void FixedUpdate()
@@ -40,6 +43,10 @@ public class PlayerMovement : MonoBehaviour
         bool hasHorizontalInput = !Mathf.Approximately(horizontal, 0f);
         bool hasVerticalInput = !Mathf.Approximately(vertical, 0f);
         bool isWalking = hasHorizontalInput || hasVerticalInput;
+        if (gameEnding.isGameEnd)
+        {
+            isWalking = false;
+        }
         m_Animator.SetBool("IsWalking", isWalking);
 
         if (isWalking)
