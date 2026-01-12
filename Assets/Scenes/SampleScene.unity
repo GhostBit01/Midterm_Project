@@ -8974,6 +8974,7 @@ MonoBehaviour:
   enemy: {fileID: 278627362}
   m_IsPlayerAtExit: 0
   m_IsPlayerCaught: 0
+  isGameEnd: 0
 --- !u!1001 &456375355
 PrefabInstance:
   m_ObjectHideFlags: 0

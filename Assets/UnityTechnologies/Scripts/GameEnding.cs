@@ -15,6 +15,7 @@ public class GameEnding : MonoBehaviour
     public bool m_IsPlayerAtExit;
     public bool m_IsPlayerCaught;
     
+    public bool isGameEnd;
     bool m_HasAudioPlayed;
     float m_Timer;
 
@@ -48,5 +49,6 @@ public class GameEnding : MonoBehaviour
         m_Timer += Time.deltaTime;
         imageCanvasGroup.alpha = m_Timer / fadeDuration;
         enemy.SetActive(false);
+        isGameEnd = true;
     }
 }
