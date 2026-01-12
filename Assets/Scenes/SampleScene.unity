@@ -11710,10 +11710,7 @@ MonoBehaviour:
   alertTriggerName: Alert
   showDebugInfo: 1
   showGizmos: 1
-  alertText: {fileID: 0}
   alert: {fileID: 0}
-  duration: 0
-  setDuration: 3
 --- !u!1 &596928941
 GameObject:
   m_ObjectHideFlags: 0
@@ -13442,6 +13439,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2237912416887870089, guid: e808d35d331b99e45876483aeb4d07dc,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 2237912416887870089, guid: e808d35d331b99e45876483aeb4d07dc,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 2237912416887870089, guid: e808d35d331b99e45876483aeb4d07dc,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 2237912416887870089, guid: e808d35d331b99e45876483aeb4d07dc,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3.482
+      objectReference: {fileID: 0}
+    - target: {fileID: 2237912416887870089, guid: e808d35d331b99e45876483aeb4d07dc,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.86
       objectReference: {fileID: 0}
     - target: {fileID: 2637587940395167883, guid: e808d35d331b99e45876483aeb4d07dc,
         type: 3}
@@ -15906,10 +15928,7 @@ MonoBehaviour:
   alertTriggerName: Alert
   showDebugInfo: 1
   showGizmos: 1
-  alertText: {fileID: 0}
   alert: {fileID: 0}
-  duration: 0
-  setDuration: 3
 --- !u!1001 &787397331
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20097,10 +20116,7 @@ MonoBehaviour:
   alertTriggerName: Alert
   showDebugInfo: 1
   showGizmos: 1
-  alertText: {fileID: 0}
   alert: {fileID: 0}
-  duration: 0
-  setDuration: 3
 --- !u!1 &959296262
 GameObject:
   m_ObjectHideFlags: 0
@@ -21414,10 +21430,7 @@ MonoBehaviour:
   alertTriggerName: Alert
   showDebugInfo: 1
   showGizmos: 1
-  alertText: {fileID: 0}
   alert: {fileID: 0}
-  duration: 0
-  setDuration: 3
 --- !u!4 &1070794391 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5349031691445505251, guid: 312f41d357133f04c91387f0162bb50f,
@@ -25511,10 +25524,7 @@ MonoBehaviour:
   alertTriggerName: Alert
   showDebugInfo: 1
   showGizmos: 1
-  alertText: {fileID: 0}
   alert: {fileID: 0}
-  duration: 0
-  setDuration: 3
 --- !u!1001 &1326412424
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28162,10 +28172,7 @@ MonoBehaviour:
   alertTriggerName: Alert
   showDebugInfo: 1
   showGizmos: 1
-  alertText: {fileID: 0}
   alert: {fileID: 0}
-  duration: 0
-  setDuration: 3
 --- !u!1001 &1462988294
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29782,10 +29789,7 @@ MonoBehaviour:
   alertTriggerName: Alert
   showDebugInfo: 1
   showGizmos: 1
-  alertText: {fileID: 0}
   alert: {fileID: 0}
-  duration: 0
-  setDuration: 3
 --- !u!1001 &1571622739
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32912,10 +32916,7 @@ MonoBehaviour:
   alertTriggerName: Alert
   showDebugInfo: 1
   showGizmos: 1
-  alertText: {fileID: 0}
   alert: {fileID: 0}
-  duration: 0
-  setDuration: 3
 --- !u!1 &1757667488
 GameObject:
   m_ObjectHideFlags: 0
@@ -33444,10 +33445,7 @@ MonoBehaviour:
   alertTriggerName: Alert
   showDebugInfo: 1
   showGizmos: 1
-  alertText: {fileID: 0}
   alert: {fileID: 0}
-  duration: 0
-  setDuration: 3
 --- !u!4 &1785431912 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5981687557191799024, guid: e808d35d331b99e45876483aeb4d07dc,
@@ -33781,10 +33779,7 @@ MonoBehaviour:
   alertTriggerName: Alert
   showDebugInfo: 1
   showGizmos: 1
-  alertText: {fileID: 0}
   alert: {fileID: 0}
-  duration: 0
-  setDuration: 3
 --- !u!1001 &1808961256
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35583,10 +35578,7 @@ MonoBehaviour:
   alertTriggerName: Alert
   showDebugInfo: 1
   showGizmos: 1
-  alertText: {fileID: 0}
   alert: {fileID: 0}
-  duration: 0
-  setDuration: 3
 --- !u!4 &1911567684 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5349031691445505251, guid: 312f41d357133f04c91387f0162bb50f,
@@ -36322,10 +36314,7 @@ MonoBehaviour:
   alertTriggerName: Alert
   showDebugInfo: 1
   showGizmos: 1
-  alertText: {fileID: 0}
   alert: {fileID: 0}
-  duration: 0
-  setDuration: 3
 --- !u!1001 &1947180388
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39650,10 +39639,7 @@ MonoBehaviour:
   alertTriggerName: Alert
   showDebugInfo: 1
   showGizmos: 1
-  alertText: {fileID: 0}
   alert: {fileID: 0}
-  duration: 0
-  setDuration: 3
 --- !u!1001 &2118103571
 PrefabInstance:
   m_ObjectHideFlags: 0
