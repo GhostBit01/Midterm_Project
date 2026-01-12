@@ -109,8 +109,10 @@ public class GargoyleStatue : MonoBehaviour
         if (playerInSight)
         {
             alert.Play();
+            playerInSight = false;
             AlertGhosts();
             lastAlertTime = Time.time;
+            
         }
 
     }
